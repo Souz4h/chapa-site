@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapa Vermelha - Consulta de Respostas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="assets/logo.png" alt="cv" class="w-12 h-12 object-cover rounded-full">
+                <h1 class="text-2xl font-bold text-red-600">Chapa Vermelha</h1>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <a href="/" class="text-gray-700 hover:text-red-600 transition">Voltar ao Início</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto pt-28 px-4 pb-16">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-3xl font-bold mb-8 text-red-600 text-center">Consulta de Respostas</h1>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <p class="mb-4">Digite o código de acompanhamento que recebeu ao enviar sua mensagem:</p>
+                <form id="searchForm" class="space-y-4">
+                    <div>
+                        <input 
+                            type="text" 
+                            id="trackingCode" 
+                            placeholder="Código de acompanhamento" 
+                            class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
+                            required
+                        >
+                    </div>
+                    <button 
+                        type="submit"
+                        class="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 transition"
+                    >
+                        Consultar
+                    </button>
+                </form>
+            </div>
+
+            <div id="resultContainer" class="hidden bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 text-red-600">Detalhes da sua mensagem</h2>
+                
+                <div class="mb-6 space-y-3">
+                    <div>
+                        <span class="font-semibold">Nome:</span>
+                        <span id="contactName"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Assunto:</span>
+                        <span id="contactSubject"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Data de envio:</span>
+                        <span id="contactDate"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Status:</span>
+                        <span id="contactStatus"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Sua mensagem:</span>
+                        <p id="contactMessage" class="mt-1 p-3 bg-gray-50 rounded"></p>
+                    </div>
+                </div>
+
+                <div id="responseSection" class="hidden">
+                    <h3 class="font-semibold text-lg mb-3 text-red-600">Resposta(s):</h3>
+                    <div id="responseList" class="space-y-4"></div>
+                </div>
+
+                <div id="noResponseSection" class="hidden text-center py-4">
+                    <p class="text-gray-600 italic">Sua mensagem ainda não foi respondida. Por favor, verifique novamente mais tarde.</p>
+                </div>
+            </div>
+
+            <div id="errorContainer" class="hidden bg-red-50 p-6 rounded-lg shadow-md text-red-700">
+                <p>Não foi possível encontrar uma mensagem com o código informado. Por favor, verifique se o código está correto e tente novamente.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-red-600 text-white py-6 text-center">
+        <p>© 2025 Chapa Vermelha - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('searchForm');
+            const resultContainer = document.getElementById('resultContainer');
+            const errorContainer = document.getElementById('errorContainer');
+            const responseSection = document.getElementById('responseSection');
+            const noResponseSection = document.getElementById('noResponseSection');
+
+            searchForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const trackingCode = document.getElementById('trackingCode').value.trim();
+                
+                if (!trackingCode) {
+                    alert('Por favor, digite o código de acompanhamento');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`/api/contacts/track/${trackingCode}`);
+                    
+                    if (!response.ok) {
+                        // Esconder o resultado se estiver visível
+                        resultContainer.classList.add('hidden');
+                        // Mostrar mensagem de erro
+                        errorContainer.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    const contact = await response.json();
+                    
+                    // Preencher os dados do contato
+                    document.getElementById('contactName').textContent = contact.name;
+                    document.getElementById('contactSubject').textContent = contact.subject;
+                    document.getElementById('contactMessage').textContent = contact.message;
+                    document.getElementById('contactDate').textContent = formatDate(contact.createdAt);
+                    document.getElementById('contactStatus').textContent = contact.status === 'pendente' ? 'Pendente' : 'Respondido';
+                    document.getElementById('contactStatus').className = contact.status === 'pendente' ? 'text-yellow-600' : 'text-green-600';
+                    
+                    // Lidar com as respostas
+                    if (contact.responses && contact.responses.length > 0) {
+                        const responseList = document.getElementById('responseList');
+                        responseList.innerHTML = '';
+                        
+                        contact.responses.forEach(response => {
+                            const responseElement = document.createElement('div');
+                            responseElement.className = 'bg-gray-50 p-3 rounded border';
+                            responseElement.innerHTML = `
+                                <div class="text-xs text-gray-500 mb-1">${formatDate(response.respondedAt)}</div>
+                                <p>${response.text}</p>
+                            `;
+                            responseList.appendChild(responseElement);
+                        });
+                        
+                        responseSection.classList.remove('hidden');
+                        noResponseSection.classList.add('hidden');
+                    } else {
+                        responseSection.classList.add('hidden');
+                        noResponseSection.classList.remove('hidden');
+                    }
+                    
+                    // Mostrar o resultado e esconder erro se estiver visível
+                    resultContainer.classList.remove('hidden');
+                    errorContainer.classList.add('hidden');
+                    
+                } catch (error) {
+                    console.error('Erro ao buscar respostas:', error);
+                    alert('Ocorreu um erro ao buscar as respostas. Por favor, tente novamente.');
+                }
+            });
+            
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            }
+        });
+    </script>
+</body>
+</html>

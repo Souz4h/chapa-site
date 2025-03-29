@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapa Vermelha - Nossas Propostas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --secondary-color: #991b1b;
+        }
+        .custom-shape-divider-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .custom-shape-divider-top svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+        .smooth-shadow {
+            box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.25);
+        }
+        .proposal-item {
+            position: relative;
+            padding-left: 1.75rem;
+        }
+        .proposal-item:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="relative min-h-screen">
+        <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://i.postimg.cc/yxLFkbtd/logo.png" alt="cv" class="w-12 h-12 object-cover rounded-full">
+                    <h1 class="text-2xl font-bold text-red-600">Chapa Vermelha</h1>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <a href="/" class="text-gray-700 hover:text-red-600 transition">Início</a>
+                    <a href="/#events" class="text-gray-700 hover:text-red-600 transition">Eventos</a>
+                    <a href="#" class="text-red-600 font-medium transition">Propostas</a>
+                    <a href="/#contact" class="text-gray-700 hover:text-red-600 transition">Contato</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="pt-28 pb-16">
+            <section class="relative bg-red-50 py-16">
+                <div class="custom-shape-divider-top">
+                    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="var(--primary-color)"></path>
+                        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="var(--primary-color)"></path>
+                        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="var(--primary-color)"></path>
+                    </svg>
+                </div>
+                <div class="max-w-3xl mx-auto text-center bg-white p-8 rounded-xl shadow-lg">
+                    <h1 class="text-5xl font-bold mb-6 text-red-700">Nossas Propostas</h1>
+                    <p class="text-xl mb-2 text-gray-800">Conheça os projetos e iniciativas que queremos implementar</p>
+                    <p class="text-lg text-red-600 font-medium font-bold">CHAPA VERMELHA É A SOLUÇÃO!</p>
+                </div>
+            </section>
+
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="bg-red-50 p-8 rounded-2xl smooth-shadow">
+                                <h2 class="text-2xl font-bold mb-6 text-red-700 flex items-center">
+                                    <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Cultura e Artes
+                                </h2>
+                                <div class="space-y-3">
+                                    <p class="proposal-item">Organizar apresentações de música, dança, poesia e contação de histórias</p>
+                                    <p class="proposal-item">Promover exposições de desenhos</p>
+                                    <p class="proposal-item">Realizar mostras de cinema</p>
+                                    <p class="proposal-item">Organizar oficinas culturais e artesanais</p>
+                                    <p class="proposal-item">Promover concursos literários</p>
+                                    <p class="proposal-item">Cine estudantil um mês sim e um mês não</p>
+                                    <p class="proposal-item">Festival de talentos</p>
+                                    <p class="proposal-item">Feira culturais</p>
+                                    <p class="proposal-item">Jornal da escola</p>
+                                    <p class="proposal-item">Música no recreio</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 p-8 rounded-2xl smooth-shadow">
+                                <h2 class="text-2xl font-bold mb-6 text-red-700 flex items-center">
+                                    <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                    Esportes e Recreação
+                                </h2>
+                                <div class="space-y-3">
+                                    <p class="proposal-item">Interclasse, gincana e jogos eletrônicos</p>
+                                    <p class="proposal-item">Torneios de pimbolim</p>
+                                    <p class="proposal-item">Melhorias na interclasse</p>
+                                    <p class="proposal-item">Competições inter escolares</p>
+                                    <p class="proposal-item">Brincadeiras especiais no dia das crianças</p>
+                                    <p class="proposal-item">Festa junina</p>
+                                    <p class="proposal-item">Gincanas recreativas</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-12 mt-12">
+                            <div class="bg-red-50 p-8 rounded-2xl smooth-shadow">
+                                <h2 class="text-2xl font-bold mb-6 text-red-700 flex items-center">
+                                    <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                    Bem-estar e Apoio
+                                </h2>
+                                <div class="space-y-3">
+                                    <p class="proposal-item">Semana da saúde mental</p>
+                                    <p class="proposal-item">Grupo de apoio emocional</p>
+                                    <p class="proposal-item">Palestras de inclusão e diversidade</p>
+                                    <p class="proposal-item">Higiene feminina: absorventes e desodorantes</p>
+                                    <p class="proposal-item">Higiene masculina: desodorantes</p>
+                                    <p class="proposal-item">Sabão nos banheiros</p>
+                                    <p class="proposal-item">Papel higiênico nos banheiros</p>
+                                    <p class="proposal-item">Suco e danone nas sextas-feiras</p>
+                                    <p class="proposal-item">Rodas de conversa</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 p-8 rounded-2xl smooth-shadow">
+                                <h2 class="text-2xl font-bold mb-6 text-red-700 flex items-center">
+                                    <svg class="w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                    Projetos Comunitários
+                                </h2>
+                                <div class="space-y-3">
+                                    <p class="proposal-item">Brechó comunitário</p>
+                                    <p class="proposal-item">Bazar solidário</p>
+                                    <p class="proposal-item">Horticultura comunitária</p>
+                                    <p class="proposal-item">Reciclagem de lixo nos intervalos</p>
+                                    <p class="proposal-item">Sala de reforço</p>
+                                    <p class="proposal-item">Grupo estudantil</p>
+                                    <p class="proposal-item">Debates sobre matérias (premiações para salas com melhor desempenho)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-16 bg-red-100 p-8 rounded-2xl smooth-shadow">
+                            <h2 class="text-2xl font-bold mb-4 text-red-700">Como vamos financiar nossos projetos?</h2>
+                            <p class="text-lg mb-4">Iremos fazer um levantamento de verbas, vendendo:</p>
+                            <div class="flex flex-wrap gap-4 mb-6">
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">Doces</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">Bolos</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">Salgados</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">Refrigerantes</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">Algodão doce</span>
+                                <span class="bg-white px-4 py-2 rounded-full text-red-600 font-medium">E outros produtos</span>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xl font-bold text-red-700">Contamos com o seu voto!</p>
+                                <p class="text-2xl font-bold mt-2 bg-red-600 text-white py-2 px-4 rounded-lg inline-block">CHAPA VERMELHA É A SOLUÇÃO!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-red-600 text-white py-6 text-center">
+            <p>© 2025 Chapa Vermelha - Todos os direitos reservados</p>
+        </footer>
+    </div>
+</body>
+</html>

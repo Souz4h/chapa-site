@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapa Vermelha - Painel Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6 text-red-600">Painel de Administração</h1>
+        <!-- Adicione este botão em um local visível no seu admin.html -->
+<a href="/logout" class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 transform hover:-translate-y-1 btn-shine flex items-center justify-center">
+    <span>Logout</span>
+    <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+    </svg>
+  </a>
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-2xl mb-4 text-red-600">Eventos</h2>
+            <form id="eventForm" class="space-y-4">
+                <input type="hidden" id="eventId">
+                <div>
+                    <label class="block text-gray-700">Título do Evento</label>
+                    <input type="text" id="eventTitle" class="w-full p-2 border rounded" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700">Descrição</label>
+                    <textarea id="eventDescription" class="w-full p-2 border rounded" required></textarea>
+                </div>
+                <div class="flex space-x-4">
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                        Salvar Evento
+                    </button>
+                    <button type="button" id="cancelEdit" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hidden">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <h2 class="text-2xl mb-4 text-red-600">Eventos Cadastrados</h2>
+                <table id="eventsTable" class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border p-2">Título</th>
+                            <th class="border p-2">Descrição</th>
+                            <th class="border p-2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl mb-4 text-red-600">Formulários de Contato</h2>
+            <div class="mb-4 flex justify-between items-center">
+                <div class="flex space-x-4">
+                    <button onclick="filterContacts('todos')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Todos
+                    </button>
+                    <button onclick="filterContacts('pendente')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Pendentes
+                    </button>
+                    <button onclick="filterContacts('respondido')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Respondidos
+                    </button>
+                </div>
+            </div>
+            <table id="contactsTable" class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border p-2">Nome</th>
+                        <th class="border p-2">Email</th>
+                        <th class="border p-2">Assunto</th>
+                        <th class="border p-2">Mensagem</th>
+                        <th class="border p-2">Status</th>
+                        <th class="border p-2">Data</th>
+                        <th class="border p-2">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="contactsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal de Resposta -->
+    <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg w-full max-w-md">
+            <h2 class="text-xl font-bold mb-4 text-red-600">Responder Contato</h2>
+            <input type="hidden" id="responseContactId">
+            <div class="mb-4 space-y-2">
+                <div class="flex">
+                    <span class="font-semibold w-20">Nome:</span>
+                    <span id="contactNameDisplay"></span>
+                </div>
+                <div class="flex">
+                    <span class="font-semibold w-20">Email:</span>
+                    <span id="contactEmailDisplay"></span>
+                </div>
+                <div class="flex">
+                    <span class="font-semibold w-20">Assunto:</span>
+                    <span id="contactSubjectDisplay"></span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-semibold">Mensagem original:</span>
+                    <p id="contactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded"></p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label class="font-semibold block mb-2">Sua resposta:</label>
+                <textarea 
+                    id="responseText" 
+                    class="w-full border p-3 rounded focus:ring-2 focus:ring-red-500 focus:outline-none" 
+                    placeholder="Digite sua resposta..."
+                    rows="6"
+                ></textarea>
+            </div>
+            <div class="flex justify-end space-x-3 mt-4">
+                <button 
+                    onclick="closeResponseModal()" 
+                    class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
+                >
+                    Cancelar
+                </button>
+                <button 
+                    onclick="sendResponse()" 
+                    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                >
+                    Enviar Resposta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Histórico de Respostas -->
+    <div id="historyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-red-600">Histórico de Respostas</h2>
+                <button onclick="closeHistoryModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mb-4 space-y-2">
+                <div class="flex">
+                    <span class="font-semibold w-20">Nome:</span>
+                    <span id="historyContactNameDisplay"></span>
+                </div>
+                <div class="flex">
+                    <span class="font-semibold w-20">Email:</span>
+                    <span id="historyContactEmailDisplay"></span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-semibold">Mensagem original:</span>
+                    <p id="historyContactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded"></p>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h3 class="font-semibold text-lg mb-2">Respostas:</h3>
+                <div id="responseHistory" class="space-y-4 max-h-64 overflow-y-auto p-1">
+                    <!-- Respostas serão inseridas aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('eventForm');
+            const eventsTableBody = document.getElementById('eventsTableBody');
+            const cancelEditBtn = document.getElementById('cancelEdit');
+            const contactsTableBody = document.getElementById('contactsTableBody');
+            
+            // Variável global para armazenar os contatos
+            let currentContacts = [];
+            let currentFilter = 'todos';
+
+            function loadEvents() {
+                fetch('/api/events')
+                    .then(response => response.json())
+                    .then(events => {
+                        eventsTableBody.innerHTML = events.map(event => `
+                            <tr>
+                                <td class="border p-2">${event.title}</td>
+                                <td class="border p-2">${event.description}</td>
+                                <td class="border p-2 text-center">
+                                    <button onclick="editEvent('${event.id}')" class="text-blue-600 mr-2">Editar</button>
+                                    <button onclick="deleteEvent('${event.id}')" class="text-red-600">Excluir</button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    });
+            }
+
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            }
+
+            window.loadContacts = function() {
+                fetch('/api/contacts')
+                    .then(response => response.json())
+                    .then(contacts => {
+                        currentContacts = contacts;
+                        displayFilteredContacts();
+                    });
+            }
+
+            window.displayFilteredContacts = function() {
+    const filteredContacts = currentFilter === 'todos' 
+        ? currentContacts 
+        : currentContacts.filter(contact => contact.status === currentFilter);
+    
+    contactsTableBody.innerHTML = filteredContacts.map(contact => `
+        <tr class="${contact.status === 'pendente' ? 'bg-yellow-50' : ''}">
+            <td class="border p-2">${contact.name}</td>
+            <td class="border p-2">${contact.email || 'Não informado'}</td>
+            <td class="border p-2">${contact.subject}</td>
+            <td class="border p-2">${
+                contact.message.length > 50 
+                    ? contact.message.substring(0, 50) + '...' 
+                    : contact.message
+            }</td>
+            <td class="border p-2 text-center">
+                <span class="px-2 py-1 rounded-full text-xs ${
+                    !contact.status || contact.status === 'pendente' 
+                        ? 'bg-yellow-200 text-yellow-800' 
+                        : 'bg-green-200 text-green-800'
+                }">
+                    ${!contact.status || contact.status === 'pendente' ? 'Pendente' : 'Respondido'}
+                </span>
+            </td>
+            <td class="border p-2 text-sm">${formatDate(contact.createdAt)}</td>
+            <td class="border p-2 text-center">
+                <button onclick="openResponseModal('${contact.id}')" class="text-blue-600 mr-2">
+                    Responder
+                </button>
+                ${
+                    contact.responses && contact.responses.length > 0
+                    ? `<button onclick="viewResponseHistory('${contact.id}')" class="text-green-600 mr-2">
+                        Histórico
+                      </button>`
+                    : ''
+                }
+                <button onclick="deleteContact('${contact.id}')" class="text-red-600">
+                    Excluir
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+            window.filterContacts = function(filter) {
+                currentFilter = filter;
+                displayFilteredContacts();
+            }
+
+            window.openResponseModal = function(contactId) {
+                const contact = currentContacts.find(c => c.id === contactId);
+                if (!contact) return;
+                
+                const modal = document.getElementById('responseModal');
+                document.getElementById('responseContactId').value = contactId;
+                document.getElementById('contactNameDisplay').textContent = contact.name;
+                document.getElementById('contactEmailDisplay').textContent = contact.email || 'Não informado';
+                document.getElementById('contactSubjectDisplay').textContent = contact.subject;
+                document.getElementById('contactMessageDisplay').textContent = contact.message;
+                document.getElementById('responseText').value = '';
+                
+                modal.classList.remove('hidden');
+            }
+
+            window.closeResponseModal = function() {
+                document.getElementById('responseModal').classList.add('hidden');
+            }
+
+            window.viewResponseHistory = function(contactId) {
+                const contact = currentContacts.find(c => c.id === contactId);
+                if (!contact || !contact.responses) return;
+                
+                const modal = document.getElementById('historyModal');
+                document.getElementById('historyContactNameDisplay').textContent = contact.name;
+                document.getElementById('historyContactEmailDisplay').textContent = contact.email || 'Não informado';
+                document.getElementById('historyContactMessageDisplay').textContent = contact.message;
+                
+                const historyContainer = document.getElementById('responseHistory');
+                historyContainer.innerHTML = contact.responses.map(response => `
+                    <div class="bg-gray-50 p-3 rounded border">
+                        <div class="text-xs text-gray-500 mb-1">
+                            ${formatDate(response.respondedAt)}
+                        </div>
+                        <p class="text-sm">${response.text}</p>
+                    </div>
+                `).join('');
+                
+                modal.classList.remove('hidden');
+            }
+
+            window.closeHistoryModal = function() {
+                document.getElementById('historyModal').classList.add('hidden');
+            }
+
+            window.sendResponse = function() {
+                const contactId = document.getElementById('responseContactId').value;
+                const responseText = document.getElementById('responseText').value.trim();
+                
+                if (!responseText) {
+                    alert('Por favor, digite uma resposta antes de enviar.');
+                    return;
+                }
+                
+                fetch(`/api/contacts/${contactId}/respond`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ response: responseText })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro ao enviar resposta');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Resposta enviada com sucesso!');
+                    closeResponseModal();
+                    loadContacts();
+                })
+                .catch(error => {
+                    alert('Erro ao enviar resposta: ' + error.message);
+                });
+            }
+
+            window.deleteContact = function(id) {
+                if (confirm('Tem certeza que deseja excluir esta mensagem de contato?')) {
+                    fetch(`/api/contacts/${id}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro ao excluir contato');
+                            }
+                            loadContacts();
+                        })
+                        .catch(error => {
+                            alert('Erro ao excluir contato: ' + error.message);
+                        });
+                }
+            };
+
+            // Funções existentes para eventos
+            window.editEvent = (id) => {
+                fetch('/api/events')
+                    .then(response => response.json())
+                    .then(events => {
+                        const event = events.find(e => e.id === id);
+                        if (event) {
+                            document.getElementById('eventId').value = event.id;
+                            document.getElementById('eventTitle').value = event.title;
+                            document.getElementById('eventDescription').value = event.description;
+                            cancelEditBtn.classList.remove('hidden');
+                        }
+                    });
+            };
+
+            window.deleteEvent = (id) => {
+                if (confirm('Tem certeza que deseja excluir este evento?')) {
+                    fetch(`/api/events/${id}`, { method: 'DELETE' })
+                        .then(() => {
+                            loadEvents();
+                            window.opener?.loadEvents?.();
+                        });
+                }
+            };
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('eventId').value;
+                const title = document.getElementById('eventTitle').value;
+                const description = document.getElementById('eventDescription').value;
+
+                const method = id ? 'PUT' : 'POST';
+                const url = id ? `/api/events/${id}` : '/api/events';
+
+                fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, description })
+                }).then(() => {
+                    loadEvents();
+                    window.opener?.loadEvents?.();
+                    form.reset();
+                    document.getElementById('eventId').value = '';
+                    cancelEditBtn.classList.add('hidden');
+                });
+            });
+
+            cancelEditBtn.addEventListener('click', () => {
+                form.reset();
+                document.getElementById('eventId').value = '';
+                cancelEditBtn.classList.add('hidden');
+            });
+
+            // Carregar dados iniciais
+            loadEvents();
+            loadContacts();
+            
+            // Fechar modais quando clicar fora deles
+            window.onclick = function(event) {
+                const responseModal = document.getElementById('responseModal');
+                const historyModal = document.getElementById('historyModal');
+                if (event.target === responseModal) {
+                    closeResponseModal();
+                }
+                if (event.target === historyModal) {
+                    closeHistoryModal();
+                }
+            };
+        });
+    </script>
+</body>
+</html>
