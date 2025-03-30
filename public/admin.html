@@ -2,21 +2,40 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapa Vermelha - Painel Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @media (max-width: 768px) {
+            .table-responsive {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .responsive-table td, .responsive-table th {
+                min-width: 120px;
+            }
+            .responsive-actions {
+                min-width: 100px;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold mb-6 text-red-600">Painel de Administração</h1>
-        <!-- Adicione este botão em um local visível no seu admin.html -->
-<a href="/logout" class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 transform hover:-translate-y-1 btn-shine flex items-center justify-center">
-    <span>Logout</span>
-    <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-    </svg>
-  </a>
-        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h2 class="text-2xl mb-4 text-red-600">Eventos</h2>
+    <div class="container mx-auto p-3 md:p-6">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-red-600 mb-4 md:mb-0">Painel de Administração</h1>
+            <a href="/logout" class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 transform hover:-translate-y-1 btn-shine flex items-center justify-center">
+                <span>Logout</span>
+                <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </a>
+        </div>
+        
+        <div class="bg-white shadow-md rounded-lg p-4 md:p-6 mb-6">
+            <h2 class="text-xl md:text-2xl mb-4 text-red-600">Eventos</h2>
             <form id="eventForm" class="space-y-4">
                 <input type="hidden" id="eventId">
                 <div>
@@ -27,84 +46,86 @@
                     <label class="block text-gray-700">Descrição</label>
                     <textarea id="eventDescription" class="w-full p-2 border rounded" required></textarea>
                 </div>
-                <div class="flex space-x-4">
-                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full sm:w-auto">
                         Salvar Evento
                     </button>
-                    <button type="button" id="cancelEdit" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hidden">
+                    <button type="button" id="cancelEdit" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hidden w-full sm:w-auto">
                         Cancelar
                     </button>
                 </div>
             </form>
 
             <div class="mt-6">
-                <h2 class="text-2xl mb-4 text-red-600">Eventos Cadastrados</h2>
-                <table id="eventsTable" class="w-full border-collapse">
+                <h2 class="text-xl md:text-2xl mb-4 text-red-600">Eventos Cadastrados</h2>
+                <div class="table-responsive">
+                    <table id="eventsTable" class="w-full border-collapse responsive-table">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border p-2">Título</th>
+                                <th class="border p-2">Descrição</th>
+                                <th class="border p-2 responsive-actions">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-4 md:p-6">
+            <h2 class="text-xl md:text-2xl mb-4 text-red-600">Formulários de Contato</h2>
+            <div class="mb-4 flex flex-wrap gap-2">
+                <button onclick="filterContacts('todos')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    Todos
+                </button>
+                <button onclick="filterContacts('pendente')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    Pendentes
+                </button>
+                <button onclick="filterContacts('respondido')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
+                    Respondidos
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table id="contactsTable" class="w-full border-collapse responsive-table">
                     <thead>
                         <tr class="bg-gray-200">
-                            <th class="border p-2">Título</th>
-                            <th class="border p-2">Descrição</th>
-                            <th class="border p-2">Ações</th>
+                            <th class="border p-2">Nome</th>
+                            <th class="border p-2">Email</th>
+                            <th class="border p-2">Assunto</th>
+                            <th class="border p-2">Mensagem</th>
+                            <th class="border p-2">Status</th>
+                            <th class="border p-2">Data</th>
+                            <th class="border p-2 responsive-actions">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="eventsTableBody"></tbody>
+                    <tbody id="contactsTableBody"></tbody>
                 </table>
             </div>
         </div>
-
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-2xl mb-4 text-red-600">Formulários de Contato</h2>
-            <div class="mb-4 flex justify-between items-center">
-                <div class="flex space-x-4">
-                    <button onclick="filterContacts('todos')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        Todos
-                    </button>
-                    <button onclick="filterContacts('pendente')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        Pendentes
-                    </button>
-                    <button onclick="filterContacts('respondido')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                        Respondidos
-                    </button>
-                </div>
-            </div>
-            <table id="contactsTable" class="w-full border-collapse">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border p-2">Nome</th>
-                        <th class="border p-2">Email</th>
-                        <th class="border p-2">Assunto</th>
-                        <th class="border p-2">Mensagem</th>
-                        <th class="border p-2">Status</th>
-                        <th class="border p-2">Data</th>
-                        <th class="border p-2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="contactsTableBody"></tbody>
-            </table>
-        </div>
     </div>
 
-    <!-- Modal de Resposta -->
-    <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md">
+    <!-- Modal de Resposta - Adaptada para Mobile -->
+    <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+        <div class="bg-white p-4 md:p-6 rounded-lg w-full max-w-md max-h-screen overflow-y-auto">
             <h2 class="text-xl font-bold mb-4 text-red-600">Responder Contato</h2>
             <input type="hidden" id="responseContactId">
             <div class="mb-4 space-y-2">
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <span class="font-semibold w-20">Nome:</span>
                     <span id="contactNameDisplay"></span>
                 </div>
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <span class="font-semibold w-20">Email:</span>
-                    <span id="contactEmailDisplay"></span>
+                    <span id="contactEmailDisplay" class="break-all"></span>
                 </div>
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <span class="font-semibold w-20">Assunto:</span>
                     <span id="contactSubjectDisplay"></span>
                 </div>
                 <div class="flex flex-col">
                     <span class="font-semibold">Mensagem original:</span>
-                    <p id="contactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded"></p>
+                    <p id="contactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded break-words"></p>
                 </div>
             </div>
             <div class="mt-4">
@@ -116,16 +137,16 @@
                     rows="6"
                 ></textarea>
             </div>
-            <div class="flex justify-end space-x-3 mt-4">
+            <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 mt-4">
                 <button 
                     onclick="closeResponseModal()" 
-                    class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
+                    class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition order-2 sm:order-1"
                 >
                     Cancelar
                 </button>
                 <button 
                     onclick="sendResponse()" 
-                    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition order-1 sm:order-2"
                 >
                     Enviar Resposta
                 </button>
@@ -133,9 +154,9 @@
         </div>
     </div>
 
-    <!-- Modal de Histórico de Respostas -->
-    <div id="historyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg w-full max-w-md">
+    <!-- Modal de Histórico de Respostas - Adaptado para Mobile -->
+    <div id="historyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+        <div class="bg-white p-4 md:p-6 rounded-lg w-full max-w-md max-h-screen overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-red-600">Histórico de Respostas</h2>
                 <button onclick="closeHistoryModal()" class="text-gray-500 hover:text-gray-700">
@@ -145,17 +166,17 @@
                 </button>
             </div>
             <div class="mb-4 space-y-2">
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <span class="font-semibold w-20">Nome:</span>
                     <span id="historyContactNameDisplay"></span>
                 </div>
-                <div class="flex">
+                <div class="flex flex-wrap">
                     <span class="font-semibold w-20">Email:</span>
-                    <span id="historyContactEmailDisplay"></span>
+                    <span id="historyContactEmailDisplay" class="break-all"></span>
                 </div>
                 <div class="flex flex-col">
                     <span class="font-semibold">Mensagem original:</span>
-                    <p id="historyContactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded"></p>
+                    <p id="historyContactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded break-words"></p>
                 </div>
             </div>
             <div class="mt-6">
@@ -186,7 +207,7 @@
                             <tr>
                                 <td class="border p-2">${event.title}</td>
                                 <td class="border p-2">${event.description}</td>
-                                <td class="border p-2 text-center">
+                                <td class="border p-2 text-center responsive-actions">
                                     <button onclick="editEvent('${event.id}')" class="text-blue-600 mr-2">Editar</button>
                                     <button onclick="deleteEvent('${event.id}')" class="text-red-600">Excluir</button>
                                 </td>
@@ -210,48 +231,51 @@
             }
 
             window.displayFilteredContacts = function() {
-    const filteredContacts = currentFilter === 'todos' 
-        ? currentContacts 
-        : currentContacts.filter(contact => contact.status === currentFilter);
-    
-    contactsTableBody.innerHTML = filteredContacts.map(contact => `
-        <tr class="${contact.status === 'pendente' ? 'bg-yellow-50' : ''}">
-            <td class="border p-2">${contact.name}</td>
-            <td class="border p-2">${contact.email || 'Não informado'}</td>
-            <td class="border p-2">${contact.subject}</td>
-            <td class="border p-2">${
-                contact.message.length > 50 
-                    ? contact.message.substring(0, 50) + '...' 
-                    : contact.message
-            }</td>
-            <td class="border p-2 text-center">
-                <span class="px-2 py-1 rounded-full text-xs ${
-                    !contact.status || contact.status === 'pendente' 
-                        ? 'bg-yellow-200 text-yellow-800' 
-                        : 'bg-green-200 text-green-800'
-                }">
-                    ${!contact.status || contact.status === 'pendente' ? 'Pendente' : 'Respondido'}
-                </span>
-            </td>
-            <td class="border p-2 text-sm">${formatDate(contact.createdAt)}</td>
-            <td class="border p-2 text-center">
-                <button onclick="openResponseModal('${contact.id}')" class="text-blue-600 mr-2">
-                    Responder
-                </button>
-                ${
-                    contact.responses && contact.responses.length > 0
-                    ? `<button onclick="viewResponseHistory('${contact.id}')" class="text-green-600 mr-2">
-                        Histórico
-                      </button>`
-                    : ''
-                }
-                <button onclick="deleteContact('${contact.id}')" class="text-red-600">
-                    Excluir
-                </button>
-            </td>
-        </tr>
-    `).join('');
-}
+                const filteredContacts = currentFilter === 'todos' 
+                    ? currentContacts 
+                    : currentContacts.filter(contact => contact.status === currentFilter);
+                
+                contactsTableBody.innerHTML = filteredContacts.map(contact => `
+                    <tr class="${contact.status === 'pendente' ? 'bg-yellow-50' : ''}">
+                        <td class="border p-2">${contact.name}</td>
+                        <td class="border p-2 break-all">${contact.email || 'Não informado'}</td>
+                        <td class="border p-2">${contact.subject}</td>
+                        <td class="border p-2">${
+                            contact.message.length > 30 
+                                ? contact.message.substring(0, 30) + '...' 
+                                : contact.message
+                        }</td>
+                        <td class="border p-2 text-center">
+                            <span class="px-2 py-1 rounded-full text-xs ${
+                                !contact.status || contact.status === 'pendente' 
+                                    ? 'bg-yellow-200 text-yellow-800' 
+                                    : 'bg-green-200 text-green-800'
+                            }">
+                                ${!contact.status || contact.status === 'pendente' ? 'Pendente' : 'Respondido'}
+                            </span>
+                        </td>
+                        <td class="border p-2 text-sm">${formatDate(contact.createdAt)}</td>
+                        <td class="border p-2 text-center responsive-actions">
+                            <div class="flex flex-col sm:flex-row gap-1 justify-center items-center">
+                                <button onclick="openResponseModal('${contact.id}')" class="text-blue-600">
+                                    Responder
+                                </button>
+                                ${
+                                    contact.responses && contact.responses.length > 0
+                                    ? `<button onclick="viewResponseHistory('${contact.id}')" class="text-green-600">
+                                        Histórico
+                                      </button>`
+                                    : ''
+                                }
+                                <button onclick="deleteContact('${contact.id}')" class="text-red-600">
+                                    Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
             window.filterContacts = function(filter) {
                 currentFilter = filter;
                 displayFilteredContacts();
@@ -270,10 +294,12 @@
                 document.getElementById('responseText').value = '';
                 
                 modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Impede rolagem do body
             }
 
             window.closeResponseModal = function() {
                 document.getElementById('responseModal').classList.add('hidden');
+                document.body.style.overflow = ''; // Restaura rolagem do body
             }
 
             window.viewResponseHistory = function(contactId) {
@@ -291,15 +317,17 @@
                         <div class="text-xs text-gray-500 mb-1">
                             ${formatDate(response.respondedAt)}
                         </div>
-                        <p class="text-sm">${response.text}</p>
+                        <p class="text-sm break-words">${response.text}</p>
                     </div>
                 `).join('');
                 
                 modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Impede rolagem do body
             }
 
             window.closeHistoryModal = function() {
                 document.getElementById('historyModal').classList.add('hidden');
+                document.body.style.overflow = ''; // Restaura rolagem do body
             }
 
             window.sendResponse = function() {
