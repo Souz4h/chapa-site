@@ -22,33 +22,62 @@
             position: relative;
             display: block;
             width: calc(100% + 1.3px);
-            height: 150px;
+            height: 80px;
+        }
+        @media (min-width: 768px) {
+            .custom-shape-divider-top svg {
+                height: 150px;
+            }
         }
         .smooth-shadow {
             box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.25);
+        }
+        /* Menu mobile */
+        .mobile-menu {
+            display: none;
+        }
+        .mobile-menu.active {
+            display: flex;
         }
     </style>
 </head>
 <body class="bg-white">
     <div class="relative min-h-screen">
+        <!-- Navbar responsiva -->
         <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
             <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-                <div class="flex items-center space-x-4">
-                    <img src="assets/logo.png" alt="cv" class="w-12 h-12 object-cover rounded-full">
-                    <h1 class="text-2xl font-bold text-red-600">Chapa Vermelha</h1>
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <img src="assets/logo.png" alt="cv" class="w-10 h-10 md:w-12 md:h-12 object-cover rounded-full">
+                    <h1 class="text-xl md:text-2xl font-bold text-red-600">Chapa Vermelha</h1>
                 </div>
 
-                <div class="flex items-center space-x-6">
+                <!-- Menu desktop -->
+                <div class="hidden md:flex items-center space-x-6">
                     <a href="#home" class="text-gray-700 hover:text-red-600 transition">Início</a>
                     <a href="#events" class="text-gray-700 hover:text-red-600 transition">Eventos</a>
                     <a href="propostas/" class="text-gray-700 hover:text-red-600 transition">Propostas</a>
                     <a href="#contact" class="text-gray-700 hover:text-red-600 transition">Contato</a>
                 </div>
+
+                <!-- Botão hamburguer para menu mobile -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu mobile dropdown -->
+            <div id="mobile-menu" class="mobile-menu flex-col w-full bg-white py-4 px-4 md:hidden shadow-lg">
+                <a href="#home" class="text-gray-700 hover:text-red-600 py-2 transition">Início</a>
+                <a href="#events" class="text-gray-700 hover:text-red-600 py-2 transition">Eventos</a>
+                <a href="propostas/" class="text-gray-700 hover:text-red-600 py-2 transition">Propostas</a>
+                <a href="#contact" class="text-gray-700 hover:text-red-600 py-2 transition">Contato</a>
             </div>
         </nav>
 
         <main class="pt-20">
-            <section id="home" class="relative bg-red-50 py-20">
+            <section id="home" class="relative bg-red-50 py-12 md:py-20">
                 <div class="custom-shape-divider-top">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                         <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="var(--primary-color)"></path>
@@ -56,80 +85,78 @@
                         <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="var(--primary-color)"></path>
                     </svg>
                 </div>
-                <div class="max-w-3xl mx-auto text-center bg-white p-8 rounded-xl shadow-lg">
-                    <h1 class="text-5xl font-bold mb-6 text-red-700">Chapa Vermelha</h1>
-                    <p class="text-xl mb-8 text-gray-800">Transformando a educação através da representatividade estudantil</p>
-                    <div class="flex justify-center space-x-4">
-                        <a href="#events" class="bg-red-600 text-white px-8 py-3 rounded-full hover:bg-red-700 transition">Eventos</a>
-                        <a href="#contact" class="border border-red-600 text-red-600 px-8 py-3 rounded-full hover:bg-red-50 transition">Contato</a>
+                <div class="max-w-3xl mx-auto text-center bg-white p-4 md:p-8 rounded-xl shadow-lg mx-4 md:mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4 md:mb-6 text-red-700">Chapa Vermelha</h1>
+                    <p class="text-lg md:text-xl mb-6 md:mb-8 text-gray-800">Transformando a educação através da representatividade estudantil</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                        <a href="#events" class="bg-red-600 text-white px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-red-700 transition text-center">Eventos</a>
+                        <a href="#contact" class="border border-red-600 text-red-600 px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-red-50 transition text-center">Contato</a>
                     </div>
                 </div>
             </section>
 
-            <main class="pt-20">
-                <section id="events" class="py-20 bg-white">
-                    <div class="container mx-auto px-4">
-                        <h2 class="text-4xl font-bold text-center mb-12 text-red-600">Próximos Eventos</h2>
-                        <div id="events-container" class="grid md:grid-cols-3 gap-8">
-                            <!-- Events will be dynamically populated here -->
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <section id="contact" class="py-20 bg-gradient-to-br from-red-50 to-white">
+            <section id="events" class="py-12 md:py-20 bg-white">
                 <div class="container mx-auto px-4">
-                    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="bg-red-600 text-white p-12 flex flex-col justify-center">
-                            <h2 class="text-4xl font-bold mb-6">Entre em Contato</h2>
-                            <p class="text-lg mb-8">Tem alguma dúvida, sugestão ou quer colaborar? Nos envie uma mensagem!</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-red-600">Próximos Eventos</h2>
+                    <div id="events-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+                        <!-- Events will be dynamically populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-12 md:py-20 bg-gradient-to-br from-red-50 to-white">
+                <div class="container mx-auto px-4">
+                    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 bg-white rounded-2xl shadow-2xl overflow-hidden">
+                        <div class="bg-red-600 text-white p-8 md:p-12 flex flex-col justify-center">
+                            <h2 class="text-3xl md:text-4xl font-bold mb-4 md:mb-6">Entre em Contato</h2>
+                            <p class="text-base md:text-lg mb-6 md:mb-8">Tem alguma dúvida, sugestão ou quer colaborar? Nos envie uma mensagem!</p>
                             
-                            <div class="space-y-6">
-                                <div class="flex items-center space-x-4">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div class="space-y-4 md:space-y-6">
+                                <div class="flex items-center space-x-3 md:space-x-4">
+                                    <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
-                                    <span>chapavermelhoalan2025@gmail.com</span>
+                                    <span class="text-sm md:text-base break-all">chapavermelhoalan2025@gmail.com</span>
                                 </div>
-                                <div class="flex items-center space-x-4">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center space-x-3 md:space-x-4">
+                                    <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h3m-3-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
                                     </svg>
-                                    <span>(15) 99818-1090</span>
+                                    <span class="text-sm md:text-base">(15) 99818-1090</span>
                                 </div>
-                                <div class="flex items-center space-x-4">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="flex items-center space-x-3 md:space-x-4">
+                                    <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
-                                    <span>Oswaldo Del Fiol, Tatuí - SP, 18274-194</span>
+                                    <span class="text-sm md:text-base">Oswaldo Del Fiol, Tatuí - SP, 18274-194</span>
                                 </div>
                             </div>
                         </div>
             
-                        <div class="p-12">
-                            <form class="space-y-6">
+                        <div class="p-6 md:p-12">
+                            <form class="space-y-4 md:space-y-6">
                                 <div>
-                                    <label class="block mb-2 text-gray-700">Nome</label>
+                                    <label class="block mb-1 md:mb-2 text-gray-700">Nome</label>
                                     <input 
                                         type="text" 
                                         placeholder="Seu nome completo" 
-                                        class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
+                                        class="w-full p-2 md:p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
                                     >
                                 </div>
                                 <div>
-                                    <label class="block mb-2 text-gray-700">Email</label>
+                                    <label class="block mb-1 md:mb-2 text-gray-700">Email</label>
                                     <input 
                                         type="email" 
                                         placeholder="Seu email para contato" 
-                                        class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
+                                        class="w-full p-2 md:p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
                                         required
                                     >
                                 </div>
                                 <div>
-                                    <label class="block mb-2 text-gray-700">Assunto</label>
+                                    <label class="block mb-1 md:mb-2 text-gray-700">Assunto</label>
                                     <select 
-                                        class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
+                                        class="w-full p-2 md:p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition"
                                     >
                                         <option>Sugestão</option>
                                         <option>Reclamação</option>
@@ -139,15 +166,15 @@
                                 </div>
                                 
                                 <div>
-                                    <label class="block mb-2 text-gray-700">Mensagem</label>
+                                    <label class="block mb-1 md:mb-2 text-gray-700">Mensagem</label>
                                     <textarea 
                                         placeholder="Escreva sua mensagem aqui..." 
-                                        class="w-full p-3 border-2 border-gray-200 rounded-lg h-32 focus:outline-none focus:border-red-500 transition"
+                                        class="w-full p-2 md:p-3 border-2 border-gray-200 rounded-lg h-24 md:h-32 focus:outline-none focus:border-red-500 transition"
                                     ></textarea>
                                 </div>
                                 
                                 <button 
-                                    class="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-700 transition transform hover:scale-105"
+                                    class="w-full bg-red-600 text-white p-2 md:p-3 rounded-lg hover:bg-red-700 transition transform hover:scale-105"
                                 >
                                     Enviar Mensagem
                                 </button>
@@ -157,72 +184,101 @@
                 </div>
             </section>
 
-            <footer class="bg-red-600 text-white py-6 text-center">
+            <footer class="bg-red-600 text-white py-4 md:py-6 text-center text-sm md:text-base">
                 <p>© 2025 Chapa Vermelha - Todos os direitos reservados</p>
             </footer>
         </div>
 
         <script>
-const contactForm = document.querySelector('#contact form');
-contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = contactForm.querySelector('input[type="text"]').value;
-    const email = contactForm.querySelector('input[type="email"]').value;
-    const subject = contactForm.querySelector('select').value;
-    const message = contactForm.querySelector('textarea').value;
-
-    try {
-        const response = await fetch('/api/contacts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, subject, message })
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            
-            // Show success message with tracking code
-            const trackingCode = result.trackingCode;
-            alert(`Mensagem enviada com sucesso!\n\nSeu código de acompanhamento é: ${trackingCode}\n\nGuarde este código para consultar as respostas da sua mensagem.`);
-            
-            // Add link to tracking page
-            const formSection = document.querySelector('#contact .p-12');
-            const trackingLink = document.createElement('div');
-            trackingLink.className = 'mt-4 text-center';
-            trackingLink.innerHTML = `
-                <p class="mb-2">Sua mensagem foi enviada com sucesso!</p>
-                <p class="font-bold mb-2">Seu código de acompanhamento: ${trackingCode}</p>
-                <a href="/respostas" class="text-white-600 hover:underline">Clique aqui para acompanhar sua resposta</a>
-            `;
-            
-            formSection.innerHTML = '';
-            formSection.appendChild(trackingLink);
-        }
-    } catch (error) {
-        console.error('Erro ao enviar mensagem:', error);
-        alert('Erro ao enviar mensagem. Tente novamente.');
-    }
-});
-            async function loadEvents() {
-                try {
-                    const response = await fetch('/api/events');
-                    const events = await response.json();
-                    const container = document.getElementById('events-container');
-                    
-                    container.innerHTML = events.length ? 
-                        events.map(event => `
-                            <div class="bg-gray-100 p-6 rounded-lg shadow hover:scale-105 transition">
-                                <h3 class="text-xl font-bold mb-4 text-red-600">${event.title}</h3>
-                                <p class="text-gray-700">${event.description}</p>
-                            </div>
-                        `).join('') : 
-                        '<p class="text-center text-gray-500 col-span-full">Nenhum evento cadastrado</p>';
-                } catch (error) {
-                    console.error('Erro ao carregar eventos:', error);
-                }
-            }
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu mobile toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
     
-            document.addEventListener('DOMContentLoaded', loadEvents);
+    mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+    });
+    
+    // Fechar menu ao clicar em um link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+        });
+    });
+    
+    // Fechar menu ao clicar fora
+    document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+            mobileMenu.classList.remove('active');
+        }
+    });
+    
+    // Formulário de contato
+    const contactForm = document.querySelector('#contact form');
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = contactForm.querySelector('input[type="text"]').value;
+        const email = contactForm.querySelector('input[type="email"]').value;
+        const subject = contactForm.querySelector('select').value;
+        const message = contactForm.querySelector('textarea').value;
+
+        try {
+            const response = await fetch('/api/contacts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, subject, message })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                
+                // Show success message with tracking code
+                const trackingCode = result.trackingCode;
+                alert(`Mensagem enviada com sucesso!\n\nSeu código de acompanhamento é: ${trackingCode}\n\nGuarde este código para consultar as respostas da sua mensagem.`);
+                
+                // Add link to tracking page
+                const formSection = document.querySelector('#contact .p-6, #contact .p-12');
+                const trackingLink = document.createElement('div');
+                trackingLink.className = 'mt-4 text-center';
+                trackingLink.innerHTML = `
+                    <p class="mb-2">Sua mensagem foi enviada com sucesso!</p>
+                    <p class="font-bold mb-2">Seu código de acompanhamento: ${trackingCode}</p>
+                    <a href="/respostas" class="text-red-600 hover:underline">Clique aqui para acompanhar sua resposta</a>
+                `;
+                
+                formSection.innerHTML = '';
+                formSection.appendChild(trackingLink);
+            }
+        } catch (error) {
+            console.error('Erro ao enviar mensagem:', error);
+            alert('Erro ao enviar mensagem. Tente novamente.');
+        }
+    });
+    
+    // Carregar eventos
+    async function loadEvents() {
+        try {
+            const response = await fetch('/api/events');
+            const events = await response.json();
+            const container = document.getElementById('events-container');
+            
+            container.innerHTML = events.length ? 
+                events.map(event => `
+                    <div class="bg-gray-100 p-4 md:p-6 rounded-lg shadow hover:shadow-md hover:scale-105 transition">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 md:mb-4 text-red-600">${event.title}</h3>
+                        <p class="text-sm md:text-base text-gray-700">${event.description}</p>
+                    </div>
+                `).join('') : 
+                '<p class="text-center text-gray-500 col-span-full">Nenhum evento cadastrado</p>';
+        } catch (error) {
+            console.error('Erro ao carregar eventos:', error);
+            container.innerHTML = '<p class="text-center text-gray-500 col-span-full">Erro ao carregar eventos</p>';
+        }
+    }
+
+    loadEvents();
+});
         </script>
     </body>
 </html>
