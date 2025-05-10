@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Conexões - Painel Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
@@ -43,28 +42,10 @@
             100% {
                 left: 100%;
                 top: 100%;
-=======
-    <title>Chapa Vermelha - Painel Admin</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        @media (max-width: 768px) {
-            .table-responsive {
-                display: block;
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            .responsive-table td, .responsive-table th {
-                min-width: 120px;
-            }
-            .responsive-actions {
-                min-width: 100px;
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             }
         }
     </style>
 </head>
-<<<<<<< HEAD
 <body class="bg-gray-50">
     <nav class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -102,43 +83,11 @@
                         Salvar Evento
                     </button>
                     <button type="button" id="cancelEdit" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 hidden transition">
-=======
-<body class="bg-gray-100">
-    <div class="container mx-auto p-3 md:p-6">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-            <h1 class="text-2xl md:text-3xl font-bold text-red-600 mb-4 md:mb-0">Painel de Administração</h1>
-            <a href="/logout" class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300 transform hover:-translate-y-1 btn-shine flex items-center justify-center">
-                <span>Logout</span>
-                <svg class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-            </a>
-        </div>
-        
-        <div class="bg-white shadow-md rounded-lg p-4 md:p-6 mb-6">
-            <h2 class="text-xl md:text-2xl mb-4 text-red-600">Eventos</h2>
-            <form id="eventForm" class="space-y-4">
-                <input type="hidden" id="eventId">
-                <div>
-                    <label class="block text-gray-700">Título do Evento</label>
-                    <input type="text" id="eventTitle" class="w-full p-2 border rounded" required>
-                </div>
-                <div>
-                    <label class="block text-gray-700">Descrição</label>
-                    <textarea id="eventDescription" class="w-full p-2 border rounded" required></textarea>
-                </div>
-                <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full sm:w-auto">
-                        Salvar Evento
-                    </button>
-                    <button type="button" id="cancelEdit" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hidden w-full sm:w-auto">
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                         Cancelar
                     </button>
                 </div>
             </form>
 
-<<<<<<< HEAD
             <div class="mt-8">
                 <h3 class="text-xl font-bold mb-4 text-blue-600">Eventos Cadastrados</h3>
                 <div class="overflow-x-auto">
@@ -148,17 +97,6 @@
                                 <th class="border border-blue-100 p-3 text-left">Título</th>
                                 <th class="border border-blue-100 p-3 text-left">Descrição</th>
                                 <th class="border border-blue-100 p-3 text-center">Ações</th>
-=======
-            <div class="mt-6">
-                <h2 class="text-xl md:text-2xl mb-4 text-red-600">Eventos Cadastrados</h2>
-                <div class="table-responsive">
-                    <table id="eventsTable" class="w-full border-collapse responsive-table">
-                        <thead>
-                            <tr class="bg-gray-200">
-                                <th class="border p-2">Título</th>
-                                <th class="border p-2">Descrição</th>
-                                <th class="border p-2 responsive-actions">Ações</th>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                             </tr>
                         </thead>
                         <tbody id="eventsTableBody"></tbody>
@@ -167,7 +105,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <div class="bg-white shadow-md rounded-2xl smooth-shadow p-6">
             <h2 class="text-2xl font-bold mb-6 text-blue-600">Mensagens de Contato</h2>
             <div class="mb-6 flex justify-between items-center">
@@ -195,32 +132,6 @@
                             <th class="border border-blue-100 p-3 text-center">Status</th>
                             <th class="border border-blue-100 p-3 text-left">Data</th>
                             <th class="border border-blue-100 p-3 text-center">Ações</th>
-=======
-        <div class="bg-white shadow-md rounded-lg p-4 md:p-6">
-            <h2 class="text-xl md:text-2xl mb-4 text-red-600">Formulários de Contato</h2>
-            <div class="mb-4 flex flex-wrap gap-2">
-                <button onclick="filterContacts('todos')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    Todos
-                </button>
-                <button onclick="filterContacts('pendente')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    Pendentes
-                </button>
-                <button onclick="filterContacts('respondido')" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500">
-                    Respondidos
-                </button>
-            </div>
-            <div class="table-responsive">
-                <table id="contactsTable" class="w-full border-collapse responsive-table">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border p-2">Nome</th>
-                            <th class="border p-2">Email</th>
-                            <th class="border p-2">Assunto</th>
-                            <th class="border p-2">Mensagem</th>
-                            <th class="border p-2">Status</th>
-                            <th class="border p-2">Data</th>
-                            <th class="border p-2 responsive-actions">Ações</th>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                         </tr>
                     </thead>
                     <tbody id="contactsTableBody"></tbody>
@@ -229,7 +140,6 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <!-- Modal de Resposta -->
     <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl">
@@ -245,69 +155,33 @@
                     <span id="contactEmailDisplay"></span>
                 </div>
                 <div class="flex">
-=======
-    <!-- Modal de Resposta - Adaptada para Mobile -->
-    <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-        <div class="bg-white p-4 md:p-6 rounded-lg w-full max-w-md max-h-screen overflow-y-auto">
-            <h2 class="text-xl font-bold mb-4 text-red-600">Responder Contato</h2>
-            <input type="hidden" id="responseContactId">
-            <div class="mb-4 space-y-2">
-                <div class="flex flex-wrap">
-                    <span class="font-semibold w-20">Nome:</span>
-                    <span id="contactNameDisplay"></span>
-                </div>
-                <div class="flex flex-wrap">
-                    <span class="font-semibold w-20">Email:</span>
-                    <span id="contactEmailDisplay" class="break-all"></span>
-                </div>
-                <div class="flex flex-wrap">
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                     <span class="font-semibold w-20">Assunto:</span>
                     <span id="contactSubjectDisplay"></span>
                 </div>
                 <div class="flex flex-col">
                     <span class="font-semibold">Mensagem original:</span>
-<<<<<<< HEAD
                     <p id="contactMessageDisplay" class="border-2 border-gray-200 bg-gray-50 p-3 mt-2 rounded-lg"></p>
-=======
-                    <p id="contactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded break-words"></p>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                 </div>
             </div>
             <div class="mt-4">
                 <label class="font-semibold block mb-2">Sua resposta:</label>
                 <textarea 
                     id="responseText" 
-<<<<<<< HEAD
                     class="w-full border-2 border-gray-200 p-3 rounded-lg focus:outline-none focus:border-blue-500 transition" 
-=======
-                    class="w-full border p-3 rounded focus:ring-2 focus:ring-red-500 focus:outline-none" 
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                     placeholder="Digite sua resposta..."
                     rows="6"
                 ></textarea>
             </div>
-<<<<<<< HEAD
             <div class="flex justify-end space-x-4 mt-6">
                 <button 
                     onclick="closeResponseModal()" 
                     class="bg-gray-300 px-5 py-2 rounded-lg hover:bg-gray-400 transition"
-=======
-            <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 mt-4">
-                <button 
-                    onclick="closeResponseModal()" 
-                    class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition order-2 sm:order-1"
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                 >
                     Cancelar
                 </button>
                 <button 
                     onclick="sendResponse()" 
-<<<<<<< HEAD
                     class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition transform hover:scale-105"
-=======
-                    class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition order-1 sm:order-2"
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                 >
                     Enviar Resposta
                 </button>
@@ -315,26 +189,17 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <!-- Modal de Histórico de Respostas -->
     <div id="historyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-2xl w-full max-w-md shadow-2xl">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-blue-600">Histórico de Respostas</h2>
-=======
-    <!-- Modal de Histórico de Respostas - Adaptado para Mobile -->
-    <div id="historyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-        <div class="bg-white p-4 md:p-6 rounded-lg w-full max-w-md max-h-screen overflow-y-auto">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-red-600">Histórico de Respostas</h2>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                 <button onclick="closeHistoryModal()" class="text-gray-500 hover:text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-<<<<<<< HEAD
             <div class="mb-6 space-y-3">
                 <div class="flex">
                     <span class="font-semibold w-20">Nome:</span>
@@ -352,25 +217,6 @@
             <div class="mt-6">
                 <h3 class="font-semibold text-lg mb-3 text-blue-600">Respostas:</h3>
                 <div id="responseHistory" class="space-y-4 max-h-64 overflow-y-auto p-2 rounded-lg border-2 border-gray-200">
-=======
-            <div class="mb-4 space-y-2">
-                <div class="flex flex-wrap">
-                    <span class="font-semibold w-20">Nome:</span>
-                    <span id="historyContactNameDisplay"></span>
-                </div>
-                <div class="flex flex-wrap">
-                    <span class="font-semibold w-20">Email:</span>
-                    <span id="historyContactEmailDisplay" class="break-all"></span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-semibold">Mensagem original:</span>
-                    <p id="historyContactMessageDisplay" class="border bg-gray-50 p-2 mt-1 text-sm rounded break-words"></p>
-                </div>
-            </div>
-            <div class="mt-6">
-                <h3 class="font-semibold text-lg mb-2">Respostas:</h3>
-                <div id="responseHistory" class="space-y-4 max-h-64 overflow-y-auto p-1">
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                     <!-- Respostas serão inseridas aqui -->
                 </div>
             </div>
@@ -393,7 +239,6 @@
                     .then(response => response.json())
                     .then(events => {
                         eventsTableBody.innerHTML = events.map(event => `
-<<<<<<< HEAD
                             <tr class="hover:bg-blue-50 transition">
                                 <td class="border border-blue-100 p-3">${event.title}</td>
                                 <td class="border border-blue-100 p-3">${event.description}</td>
@@ -410,14 +255,6 @@
                                         </svg>
                                         Excluir
                                     </button>
-=======
-                            <tr>
-                                <td class="border p-2">${event.title}</td>
-                                <td class="border p-2">${event.description}</td>
-                                <td class="border p-2 text-center responsive-actions">
-                                    <button onclick="editEvent('${event.id}')" class="text-blue-600 mr-2">Editar</button>
-                                    <button onclick="deleteEvent('${event.id}')" class="text-red-600">Excluir</button>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                                 </td>
                             </tr>
                         `).join('');
@@ -444,7 +281,6 @@
                     : currentContacts.filter(contact => contact.status === currentFilter);
                 
                 contactsTableBody.innerHTML = filteredContacts.map(contact => `
-<<<<<<< HEAD
                     <tr class="${contact.status === 'pendente' ? 'bg-blue-50' : ''} hover:bg-gray-50 transition">
                         <td class="border border-blue-100 p-3">${contact.name}</td>
                         <td class="border border-blue-100 p-3">${contact.email || 'Não informado'}</td>
@@ -459,27 +295,10 @@
                                 !contact.status || contact.status === 'pendente' 
                                     ? 'bg-yellow-100 text-yellow-800' 
                                     : 'bg-green-100 text-green-800'
-=======
-                    <tr class="${contact.status === 'pendente' ? 'bg-yellow-50' : ''}">
-                        <td class="border p-2">${contact.name}</td>
-                        <td class="border p-2 break-all">${contact.email || 'Não informado'}</td>
-                        <td class="border p-2">${contact.subject}</td>
-                        <td class="border p-2">${
-                            contact.message.length > 30 
-                                ? contact.message.substring(0, 30) + '...' 
-                                : contact.message
-                        }</td>
-                        <td class="border p-2 text-center">
-                            <span class="px-2 py-1 rounded-full text-xs ${
-                                !contact.status || contact.status === 'pendente' 
-                                    ? 'bg-yellow-200 text-yellow-800' 
-                                    : 'bg-green-200 text-green-800'
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                             }">
                                 ${!contact.status || contact.status === 'pendente' ? 'Pendente' : 'Respondido'}
                             </span>
                         </td>
-<<<<<<< HEAD
                         <td class="border border-blue-100 p-3 text-sm">${formatDate(contact.createdAt)}</td>
                         <td class="border border-blue-100 p-3 text-center">
                             <button onclick="openResponseModal('${contact.id}')" class="text-blue-600 hover:text-blue-800 mr-2 transition">
@@ -504,25 +323,6 @@
                                 </svg>
                                 Excluir
                             </button>
-=======
-                        <td class="border p-2 text-sm">${formatDate(contact.createdAt)}</td>
-                        <td class="border p-2 text-center responsive-actions">
-                            <div class="flex flex-col sm:flex-row gap-1 justify-center items-center">
-                                <button onclick="openResponseModal('${contact.id}')" class="text-blue-600">
-                                    Responder
-                                </button>
-                                ${
-                                    contact.responses && contact.responses.length > 0
-                                    ? `<button onclick="viewResponseHistory('${contact.id}')" class="text-green-600">
-                                        Histórico
-                                      </button>`
-                                    : ''
-                                }
-                                <button onclick="deleteContact('${contact.id}')" class="text-red-600">
-                                    Excluir
-                                </button>
-                            </div>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                         </td>
                     </tr>
                 `).join('');
@@ -546,18 +346,10 @@
                 document.getElementById('responseText').value = '';
                 
                 modal.classList.remove('hidden');
-<<<<<<< HEAD
-=======
-                document.body.style.overflow = 'hidden'; // Impede rolagem do body
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             }
 
             window.closeResponseModal = function() {
                 document.getElementById('responseModal').classList.add('hidden');
-<<<<<<< HEAD
-=======
-                document.body.style.overflow = ''; // Restaura rolagem do body
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             }
 
             window.viewResponseHistory = function(contactId) {
@@ -571,35 +363,19 @@
                 
                 const historyContainer = document.getElementById('responseHistory');
                 historyContainer.innerHTML = contact.responses.map(response => `
-<<<<<<< HEAD
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                         <div class="text-xs text-gray-500 mb-2">
                             ${formatDate(response.respondedAt)}
                         </div>
                         <p class="text-sm">${response.text}</p>
-=======
-                    <div class="bg-gray-50 p-3 rounded border">
-                        <div class="text-xs text-gray-500 mb-1">
-                            ${formatDate(response.respondedAt)}
-                        </div>
-                        <p class="text-sm break-words">${response.text}</p>
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                     </div>
                 `).join('');
                 
                 modal.classList.remove('hidden');
-<<<<<<< HEAD
-=======
-                document.body.style.overflow = 'hidden'; // Impede rolagem do body
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             }
 
             window.closeHistoryModal = function() {
                 document.getElementById('historyModal').classList.add('hidden');
-<<<<<<< HEAD
-=======
-                document.body.style.overflow = ''; // Restaura rolagem do body
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             }
 
             window.sendResponse = function() {
