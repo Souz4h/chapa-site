@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));
 
+<<<<<<< HEAD
 // Configuração da sessão com expiração
 app.use(session({
   secret: '1c66f1cba54282e234030d764a109e82eb2ce9360a43c9d88858a8884afa3d0b543e3ef6520ad9b58001e00c0f7993f08ca52d3bbf0e379c4e7d95f12b825e43', // Altere para uma chave forte e única
@@ -28,38 +29,95 @@ app.use(session({
   }
 }));
 
+=======
+app.use(session({
+  secret: '1c66f1cba54282e234030d764a109e82eb2ce9360a43c9d88858a8884afa3d0b543e3ef6520ad9b58001e00c0f7993f08ca52d3bbf0e379c4e7d95f12b825e43',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { 
+    maxAge: 3600000,
+    secure: false, // Altere para false em desenvolvimento
+    httpOnly: true,
+    sameSite: 'lax' // Ajuda com problemas de CORS
+  }
+}));
+
+
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
 // Dados do administrador
 const adminUser = process.env.ADMIN;
 const adminPasswordHash = process.env.PASSWORD;
 
 // Rota POST para efetuar login
+<<<<<<< HEAD
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   // Verifica se o usuário é o admin
+=======
+// No app.js, modifique a rota de login
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
   if (username !== adminUser) {
     return res.status(401).json({ message: 'Credenciais inválidas' });
   }
 
+<<<<<<< HEAD
   // Compara a senha informada com o hash armazenado
+=======
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
   const passwordMatch = await bcrypt.compare(password, adminPasswordHash);
   if (!passwordMatch) {
     return res.status(401).json({ message: 'Credenciais inválidas' });
   }
 
+<<<<<<< HEAD
   // Login bem-sucedido: cria a sessão
   req.session.user = adminUser;
   res.json({ message: 'Login bem-sucedido' });
+=======
+  req.session.user = adminUser;
+  req.session.save((err) => {
+    if (err) {
+      console.error("Erro ao salvar sessão:", err);
+      return res.status(500).json({ message: 'Erro ao criar sessão' });
+    }
+    res.json({ success: true, redirectTo: '/admin' });
+  });
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
 });
 
 // Middleware para proteger rotas que requerem autenticação
 function requireAuth(req, res, next) {
+<<<<<<< HEAD
   if (req.session.user === adminUser) {
     return next();
   }
   // Redireciona para login com parâmetro de não autorizado
   res.redirect('/login?unauthorized=true');
 }
+=======
+  console.log('Sessão:', req.session);
+  console.log('Usuário na sessão:', req.session.user);
+  console.log('Admin user:', adminUser);
+  
+  if (req.session.user === adminUser) {
+    return next();
+  }
+  
+  console.log('Autenticação falhou, redirecionando para login');
+  res.redirect('/login?unauthorized=true');
+}
+app.get('/check-session', (req, res) => {
+  res.json({
+    session: req.session ? 'exists' : 'not exists',
+    user: req.session.user || 'not set',
+    isAuthenticated: req.session.user === adminUser
+  });
+});
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
 
 // Rotas de API e páginas
 app.use('/api/events', eventRoutes);

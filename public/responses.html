@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Conexões - Consulta de Respostas</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
@@ -131,10 +132,185 @@
 
     <footer class="bg-blue-600 text-white py-6 text-center">
         <p>© 2025 Conexões - Todos os direitos reservados</p>
+=======
+    <title>Chapa Vermelha - Consulta de Respostas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Estilos para o menu mobile */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 100;
+            padding: 2rem;
+        }
+        .mobile-menu.active {
+            display: block;
+        }
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* Estilos responsivos adicionais */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        /* Melhorias para tela muito pequena */
+        @media (max-width: 360px) {
+            .xs-text-sm {
+                font-size: 0.875rem;
+            }
+            .xs-p-2 {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                <img src="assets/logo.png" alt="cv" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded-full">
+                <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-red-600">Chapa Vermelha</h1>
+            </div>
+
+            <!-- Menu para desktop -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="/" class="text-gray-700 hover:text-red-600 transition">Voltar ao Início</a>
+            </div>
+
+            <!-- Botão do menu mobile -->
+            <button id="menu-toggle" class="md:hidden text-red-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu mobile -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="assets/logo.png" alt="cv" class="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-full">
+                <h1 class="text-lg sm:text-xl font-bold text-red-600">Chapa Vermelha</h1>
+            </div>
+            <button id="close-menu" class="text-red-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="/" class="text-lg sm:text-xl text-gray-700 hover:text-red-600 transition">Voltar ao Início</a>
+        </div>
+    </div>
+
+    <main class="container mx-auto pt-20 sm:pt-22 md:pt-28 px-3 sm:px-4 pb-12 sm:pb-16 flex-grow">
+        <div class="max-w-xl sm:max-w-2xl mx-auto">
+            <h1 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 md:mb-8 text-red-600 text-center">Consulta de Respostas</h1>
+            
+            <div class="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md mb-4 sm:mb-6">
+                <p class="mb-3 sm:mb-4 text-xs sm:text-sm md:text-base">Digite o código de acompanhamento que recebeu ao enviar sua mensagem:</p>
+                <form id="searchForm" class="space-y-3 sm:space-y-4">
+                    <div>
+                        <input 
+                            type="text" 
+                            id="trackingCode" 
+                            placeholder="Código de acompanhamento" 
+                            class="w-full p-2 sm:p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition text-xs sm:text-sm md:text-base"
+                            required
+                        >
+                    </div>
+                    <button 
+                        type="submit"
+                        class="w-full bg-red-600 text-white p-2 sm:p-3 rounded-lg hover:bg-red-700 transition text-xs sm:text-sm md:text-base"
+                    >
+                        Consultar
+                    </button>
+                </form>
+            </div>
+
+            <div id="resultContainer" class="hidden bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-md">
+                <h2 class="text-base sm:text-lg md:text-xl font-bold mb-3 sm:mb-4 text-red-600">Detalhes da sua mensagem</h2>
+                
+                <div class="mb-4 sm:mb-6 space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base">
+                    <div>
+                        <span class="font-semibold">Nome:</span>
+                        <span id="contactName"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Assunto:</span>
+                        <span id="contactSubject"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Data de envio:</span>
+                        <span id="contactDate"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Status:</span>
+                        <span id="contactStatus"></span>
+                    </div>
+                    <div>
+                        <span class="font-semibold">Sua mensagem:</span>
+                        <p id="contactMessage" class="mt-1 p-2 sm:p-3 bg-gray-50 rounded text-xs sm:text-sm md:text-base"></p>
+                    </div>
+                </div>
+
+                <div id="responseSection" class="hidden">
+                    <h3 class="font-semibold text-sm sm:text-md md:text-lg mb-2 sm:mb-3 text-red-600">Resposta(s):</h3>
+                    <div id="responseList" class="space-y-3 sm:space-y-4"></div>
+                </div>
+
+                <div id="noResponseSection" class="hidden text-center py-3 sm:py-4">
+                    <p class="text-gray-600 italic text-xs sm:text-sm md:text-base">Sua mensagem ainda não foi respondida. Por favor, verifique novamente mais tarde.</p>
+                </div>
+            </div>
+
+            <div id="errorContainer" class="hidden bg-red-50 p-3 sm:p-4 md:p-6 rounded-lg shadow-md text-red-700 text-xs sm:text-sm md:text-base">
+                <p>Não foi possível encontrar uma mensagem com o código informado. Por favor, verifique se o código está correto e tente novamente.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-red-600 text-white py-4 sm:py-6 text-center text-xs sm:text-sm md:text-base mt-auto">
+        <p>© 2025 Chapa Vermelha - Todos os direitos reservados</p>
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+<<<<<<< HEAD
+=======
+            // Toggle menu mobile
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeMenu = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.add('active');
+                });
+            }
+            
+            if (closeMenu) {
+                closeMenu.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                });
+            }
+            
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
             const searchForm = document.getElementById('searchForm');
             const resultContainer = document.getElementById('resultContainer');
             const errorContainer = document.getElementById('errorContainer');
@@ -179,7 +355,11 @@
                         
                         contact.responses.forEach(response => {
                             const responseElement = document.createElement('div');
+<<<<<<< HEAD
                             responseElement.className = 'bg-blue-50 p-4 rounded border border-blue-200';
+=======
+                            responseElement.className = 'bg-gray-50 p-2 sm:p-3 rounded border text-xs sm:text-sm md:text-base';
+>>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
                             responseElement.innerHTML = `
                                 <div class="text-xs text-gray-500 mb-1">${formatDate(response.respondedAt)}</div>
                                 <p>${response.text}</p>
