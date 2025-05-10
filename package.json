@@ -2,10 +2,7 @@
   "name": "chapa-vermelha-admin",
   "version": "1.0.0",
   "scripts": {
-<<<<<<< HEAD
-=======
     "build": "npm rebuild bcrypt --build-from-source",
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
   },
