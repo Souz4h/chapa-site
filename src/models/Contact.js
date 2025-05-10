@@ -19,8 +19,29 @@ class Contact {
     }
   }
 
-  static async create(contactData) {
-    const data = await fs.readJson(DATABASE_PATH);
+// src/models/Contact.js
+// Substitua o método create pelo código abaixo:
+
+static async create(contactData) {
+  try {
+    let data;
+    try {
+      data = await fs.readJson(DATABASE_PATH);
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        // Arquivo não existe, criar estrutura inicial
+        data = { contacts: [] };
+        await fs.ensureFile(DATABASE_PATH);
+        await fs.writeJson(DATABASE_PATH, data);
+      } else {
+        throw error;
+      }
+    }
+    
+    // Garantir que temos o array contacts
+    if (!data.contacts) {
+      data.contacts = [];
+    }
     
     // Generate a tracking code (6 alphanumeric characters)
     const trackingCode = crypto.randomBytes(3).toString('hex').toUpperCase();
@@ -36,7 +57,11 @@ class Contact {
     data.contacts.push(newContact);
     await fs.writeJson(DATABASE_PATH, data);
     return newContact;
+  } catch (error) {
+    console.error('Erro ao criar contato:', error);
+    throw new Error(`Erro ao criar contato: ${error.message}`);
   }
+}
 
   static async delete(id) {
     const data = await fs.readJson(DATABASE_PATH);

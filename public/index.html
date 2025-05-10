@@ -205,46 +205,54 @@
     </div>
 
     <script>
-        const contactForm = document.querySelector('#contact form');
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = contactForm.querySelector('input[type="text"]').value;
-            const email = contactForm.querySelector('input[type="email"]').value;
-            const subject = contactForm.querySelector('select').value;
-            const message = contactForm.querySelector('textarea').value;
+const contactForm = document.querySelector('#contact form');
+contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = contactForm.querySelector('input[type="text"]').value;
+    const email = contactForm.querySelector('input[type="email"]').value;
+    const subject = contactForm.querySelector('select').value;
+    const message = contactForm.querySelector('textarea').value;
+    
+    // Validação básica do lado do cliente
+    if (!name || !email || !message) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
 
-            try {
-                const response = await fetch('/api/contacts', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, subject, message })
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    
-
-                    const trackingCode = result.trackingCode;
-                    alert(`Mensagem enviada com sucesso!\n\nSeu código de acompanhamento é: ${trackingCode}\n\nGuarde este código para consultar as respostas da sua mensagem.`);
-                    
-
-                    const formSection = document.querySelector('#contact .p-12');
-                    const trackingLink = document.createElement('div');
-                    trackingLink.className = 'mt-4 text-center';
-                    trackingLink.innerHTML = `
-                        <p class="mb-2">Sua mensagem foi enviada com sucesso!</p>
-                        <p class="font-bold mb-2">Seu código de acompanhamento: ${trackingCode}</p>
-                        <a href="/respostas" class="text-blue-600 hover:underline">Clique aqui para acompanhar sua resposta</a>
-                    `;
-                    
-                    formSection.innerHTML = '';
-                    formSection.appendChild(trackingLink);
-                }
-            } catch (error) {
-                console.error('Erro ao enviar mensagem:', error);
-                alert('Erro ao enviar mensagem. Tente novamente.');
-            }
+    try {
+        console.log('Enviando dados:', { name, email, subject, message });
+        
+        const response = await fetch('/api/contacts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, subject, message })
         });
+        
+        const responseData = await response.json();
+        console.log('Resposta do servidor:', responseData);
+        
+        if (response.ok) {
+            const trackingCode = responseData.trackingCode;
+            alert(`Mensagem enviada com sucesso!\n\nSeu código de acompanhamento é: ${trackingCode}\n\nGuarde este código para consultar as respostas da sua mensagem.`);
+            
+            const formSection = document.querySelector('#contact .p-12');
+            formSection.innerHTML = `
+                <div class="mt-4 text-center">
+                    <p class="mb-2">Sua mensagem foi enviada com sucesso!</p>
+                    <p class="font-bold mb-2">Seu código de acompanhamento: ${trackingCode}</p>
+                    <a href="/respostas" class="text-white-600 hover:underline">Clique aqui para acompanhar sua resposta</a>
+                </div>
+            `;
+        } else {
+            console.error('Erro na resposta do servidor:', responseData);
+            alert(`Erro ao enviar mensagem: ${responseData.message || 'Erro desconhecido'}`);
+        }
+    } catch (error) {
+        console.error('Erro ao processar envio:', error);
+        alert('Erro ao enviar mensagem. Verifique o console para mais detalhes.');
+    }
+});
 
         async function loadEvents() {
             try {

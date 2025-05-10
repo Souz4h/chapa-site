@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"contacts":[{"id":"a5389ee6-0692-467e-b06c-cdcee30d3b43","name":"fernando","email":"fasdfsdfa@gmail.com","subject":"Reclamação","message":"sdfasdfas","trackingCode":"56DCB5","status":"respondido","createdAt":"2025-03-29T16:24:06.393Z","responses":[{"text":"sad","respondedAt":"2025-03-29T16:24:15.920Z"}]}]}
-=======
-{"contacts":[{"id":"fb8d0136-4bc1-4efe-8121-d68fd3fa8143","name":"Fernando de Souza Carvalho","email":"fersouzataylor@protonmail.com","subject":"Outros","message":"fsdfasdfafdafdafda","trackingCode":"7495B6","status":"respondido","createdAt":"2025-03-29T19:41:05.460Z","responses":[{"text":"7495B6","respondedAt":"2025-03-29T19:41:17.770Z"},{"text":"7495B6","respondedAt":"2025-03-29T19:41:25.505Z"}]}]}
->>>>>>> dfc440820c164e2dfafe27774fd6614573897b4b
+{"contacts":[{"id":"401dbaf2-4d3f-49f9-9377-e79b8cb356d4","name":"safsadf","email":"safdsad@gmail.com","subject":"Sugestão","message":"sdfsadf","trackingCode":"593DAB","status":"pendente","createdAt":"2025-05-10T23:48:37.224Z"},{"id":"cda2cb0b-58cb-494b-9f6e-4cd29b49cb32","name":"safsadf","email":"safdsad@gmail.com","subject":"Sugestão","message":"sdfsadf","trackingCode":"2F05D8","status":"pendente","createdAt":"2025-05-10T23:49:13.143Z"}]}
