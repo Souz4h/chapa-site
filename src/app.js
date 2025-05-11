@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const eventRoutes = require('./routes/eventRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 require('dotenv').config();
